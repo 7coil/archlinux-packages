@@ -1,6 +1,6 @@
 FROM archlinux:base-devel as builder
 
-RUN useradd -m builder
+RUN useradd -m builder && echo "\nbuilder ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers
 USER builder
 
 WORKDIR /build

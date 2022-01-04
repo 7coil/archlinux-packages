@@ -1,6 +1,6 @@
 FROM archlinux:base-devel as builder
 
-RUN useradd -m builder && echo "builder ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers && mkdir /packages /build && chown builder /packages /build
+RUN useradd -m builder && echo "builder ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers && mkdir /packages && chown builder /packages && pacman -Syuy
 USER builder
 
 WORKDIR /build

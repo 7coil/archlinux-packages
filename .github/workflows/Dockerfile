@@ -1,5 +1,8 @@
 FROM archlinux:base-devel as builder
 
+RUN useradd -m builder
+USER builder
+
 WORKDIR /build
 RUN mkdir /packages
 COPY mesa-ps4 ./mesa-ps4

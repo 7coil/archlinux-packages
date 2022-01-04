@@ -1,6 +1,10 @@
 FROM archlinux:base-devel as builder
 
-RUN useradd -m builder && echo "builder ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers && mkdir /packages && chown builder /packages && pacman -Syuy
+RUN useradd -m builder && echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+    mkdir /packages && chown builder /packages && \
+    echo "MAKEFLAGS=-j$(nproc)" >> /etc/makepkg.conf && \
+    echo "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf && \
+    pacman -Syuy
 USER builder
 
 WORKDIR /build

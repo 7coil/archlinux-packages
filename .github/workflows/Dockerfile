@@ -4,7 +4,7 @@ RUN useradd -m builder && echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
     mkdir /packages && chown builder /packages && \
     echo "MAKEFLAGS=-j$(nproc)" >> /etc/makepkg.conf && \
     echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf && \
-    pacman -Syuy lib32-gcc-libs
+    pacman -Syu --noconfirm lib32-gcc-libs
 USER builder
 
 WORKDIR /build

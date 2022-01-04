@@ -1,10 +1,9 @@
 FROM archlinux:base-devel as builder
 
-RUN useradd -m builder && echo "\nbuilder ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers
+RUN useradd -m builder && echo "\nbuilder ALL=(ALL) NOPASSWD: ALL" | tee /etc/sudoers && mkdir /packages && chown builder /packages
 USER builder
 
 WORKDIR /build
-RUN mkdir /packages
 COPY mesa-ps4 ./mesa-ps4
 RUN cd mesa-ps4 && makepkg -si && cp *.pkg.* /packages/ && rm -rf mesa-ps4
 

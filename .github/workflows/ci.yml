@@ -10,8 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: cp .github/workflows/Dockerfile ./ && docker build --tag=prebuilt-packages .
-    - run: mkdir -p packages && cd packages && docker image save prebuilt-packages | tar x
+    - run: mkdir -p packages && cd packages && docker export $(docker create prebuilt-packages) | tar x
     - uses: actions/upload-artifact@v1
       with:
-        path: packages
+        path: packages/**
         name: packages
